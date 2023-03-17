@@ -1,0 +1,8 @@
+[package]
+name = "ber"
+version = "0.1.0"
+edition = "2021"
+authors = ["CHUN <chunhui.xie@qq.com>"]
+description = """A browser engine in rust"""
+
+[dependencies]
