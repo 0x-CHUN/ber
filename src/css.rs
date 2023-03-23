@@ -23,8 +23,8 @@ pub struct SimpleSelector {
 
 #[derive(Debug)]
 pub struct Declaration {
-    name: String,
-    value: Value,
+    pub name: String,
+    pub value: Value,
 }
 
 #[derive(Debug, Clone, PartialEq)]

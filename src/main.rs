@@ -4,6 +4,7 @@ use std::io::Read;
 pub mod dom;
 pub mod html;
 pub mod css;
+pub mod style;
 
 fn main() {
     let html_content = read("./tests/test.html".to_string());
