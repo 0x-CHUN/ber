@@ -59,6 +59,15 @@ impl Selector {
     }
 }
 
+impl Value {
+    pub fn to_px(&self) -> f32 {
+        match *self {
+            Value::Length(f, Unit::Px) => f,
+            _ => 0.0
+        }
+    }
+}
+
 pub fn parse(source: String) -> StyleSheet {
     let mut parser = Parser { pos: 0, input: source };
     StyleSheet {

@@ -3,13 +3,14 @@ use crate::css::{Rule, Selector, SimpleSelector, Specificity, StyleSheet, Value}
 use crate::css::Selector::Simple;
 use crate::dom::{ElementData, Node};
 use crate::dom::NodeType::{Element, Text};
+use crate::style::Display::{Block, Inline, None};
 
 type PropertyMap = HashMap<String, Value>;
 
 pub struct StyledNode<'a> {
     node: &'a Node,
     specified_values: PropertyMap,
-    children: Vec<StyledNode<'a>>,
+    pub(crate) children: Vec<StyledNode<'a>>,
 }
 
 #[derive(PartialEq)]
@@ -17,6 +18,28 @@ pub enum Display {
     Inline,
     Block,
     None,
+}
+
+impl<'a> StyledNode<'a> {
+    pub(crate) fn value(&self, name: &str) -> Option<Value> {
+        self.specified_values.get(name).cloned()
+    }
+
+    pub(crate) fn display(&self) -> Display {
+        match self.value("display") {
+            Some(Value::Keyword(s)) => match &*s {
+                "block" => Block,
+                "none" => None,
+                _ => Inline
+            },
+            _ => Inline
+        }
+    }
+
+    pub fn lookup(&self, name: &str, fallback_name: &str, default: &Value) -> Value {
+        self.value(name).unwrap_or_else(|| self.value(fallback_name)
+            .unwrap_or_else(|| default.clone()))
+    }
 }
 
 fn matches(elem: &ElementData, selector: &Selector) -> bool {

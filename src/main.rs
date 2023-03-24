@@ -5,6 +5,7 @@ pub mod dom;
 pub mod html;
 pub mod css;
 pub mod style;
+pub mod layout;
 
 fn main() {
     let html_content = read("./tests/test.html".to_string());
