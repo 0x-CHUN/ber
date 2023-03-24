@@ -6,3 +6,5 @@ authors = ["CHUN <chunhui.xie@qq.com>"]
 description = """A browser engine in rust"""
 
 [dependencies]
+getopts = "0.2"
+image = "0.24.5"
